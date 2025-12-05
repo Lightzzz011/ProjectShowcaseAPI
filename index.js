@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
@@ -9,11 +10,18 @@ app.use(cors());
 app.use(express.json());
 app.set('json spaces', 2);
 
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', (req, res) => {
-  res.send('ProjectShowcase API — visit /api/v1/projects for the JSON list.');
+app.get('/docs', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'docs.html'));
+});
+app.get('/viewer', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'viewer.html'));
 });
 
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 const limiter = rateLimit({ windowMs: 60 * 1000, max: 200 });
 app.use(limiter);
@@ -54,7 +62,6 @@ const projects = [
   }
 ];
 
-
 function filterAndPaginate(items, q, tag, page=1, perPage=10, sort='newest') {
   let out = items.slice();
   if (q) {
@@ -72,7 +79,6 @@ function filterAndPaginate(items, q, tag, page=1, perPage=10, sort='newest') {
   return { data: pag, total, page, perPage };
 }
 
-// Endpoints
 app.get('/api/v1/projects', (req, res) => {
   const { q, tag, page, perPage, sort } = req.query;
   const pageNum = Math.max(1, Number(page) || 1);
@@ -112,6 +118,13 @@ app.post('/api/v1/contact', (req, res) => {
     return res.status(400).json({ ok:false, error:'missing_fields', need:['name','email','message'] });
   }
   res.json({ ok:true, message:'received', data:{ name, email, message }});
+});
+
+app.use((req, res) => {
+  if (req.path.startsWith('/api/')) {
+    return res.status(404).json({ ok:false, error:'not_found' });
+  }
+  res.status(404).sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 const PORT = process.env.PORT || 4000;
