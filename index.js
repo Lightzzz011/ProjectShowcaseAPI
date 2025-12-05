@@ -7,6 +7,8 @@ const app = express();
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
+app.set('json spaces', 2);
+
 
 app.get('/', (req, res) => {
   res.send('ProjectShowcase API — visit /api/v1/projects for the JSON list.');
