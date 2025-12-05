@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ProjectShowcase API</title>
+  <style>
+    :root{
+      --bg:#0f1720; --card:#0b1220; --muted:#9aa4b2; --accent:#2563eb; --glass: rgba(255,255,255,0.03);
+      color-scheme: dark;
+    }
+    body{font-family:Inter,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial; background:linear-gradient(180deg,#071024,#0b1220); color:#e6eef8; margin:0; padding:40px;}
+    .container{max-width:900px;margin:0 auto;}
+    header{display:flex;align-items:center;gap:16px;margin-bottom:26px}
+    .logo{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#8b5cf6);display:flex;align-items:center;justify-content:center;font-weight:700}
+    h1{margin:0;font-size:22px}
+    p.lead{color:var(--muted);margin:8px 0 20px}
+    .card{background:var(--card); padding:18px;border-radius:12px; box-shadow:0 6px 18px rgba(2,6,23,0.7); margin-bottom:14px}
+    .endpoints{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    a.btn{display:inline-block;padding:10px 14px;border-radius:10px;text-decoration:none;color:white;background:linear-gradient(90deg,var(--accent),#8b5cf6);font-weight:600}
+    code{background:var(--glass);padding:6px 8px;border-radius:6px;color:#dbeafe}
+    footer{color:var(--muted);margin-top:26px;font-size:13px}
+    @media (max-width:700px){.endpoints{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">PS</div>
+      <div>
+        <h1>ProjectShowcase API</h1>
+        <p class="lead">A small, structured JSON API exposing curated project entries, tags, metrics, and a contact endpoint.</p>
+      </div>
+    </header>
+
+    <div class="card">
+      <strong>Base URL</strong>
+      <div style="margin-top:8px"><code id="base">https://projectshowcaseapi.onrender.com</code></div>
+    </div>
+
+    <div class="card">
+      <strong>Useful Endpoints</strong>
+      <div class="endpoints" style="margin-top:12px">
+        <div>
+          <div><a class="btn" href="/api/v1/projects" target="_blank">/api/v1/projects</a></div>
+          <div style="color:var(--muted);margin-top:8px">List projects — supports <code>q</code>, <code>tag</code>, <code>page</code>, <code>perPage</code>, <code>sort</code>.</div>
+        </div>
+        <div>
+          <div><a class="btn" href="/docs" target="_blank">Docs & Examples</a></div>
+          <div style="color:var(--muted);margin-top:8px">Detailed docs, fetch examples, and cURL snippets.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <strong>Quick actions</strong>
+      <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+        <a class="btn" href="/viewer" target="_blank">Open JSON Viewer</a>
+        <a class="btn" href="/api/v1/skills" target="_blank">/api/v1/skills</a>
+        <a class="btn" href="/api/v1/metrics" target="_blank">/api/v1/metrics</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <strong>Source</strong>
+      <div style="margin-top:8px;color:var(--muted)">
+        Created by Koluguri Sai Srinivas — source: <a style="color:#9ad0ff" href="https://github.com/Lightzzz011/ProjectShowcaseAPI" target="_blank">GitHub/ProjectShowcaseAPI</a>
+      </div>
+    </div>
+
+    <footer>
+      Tip: use the <code>/viewer</code> page to see JSON formatted and collapsible. API responses are JSON and formatted for readability.
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>ProjectShowcase API — Viewer</title>
+  <style>
+    body{background:#071024;color:#e6eef8;font-family:Inter,system-ui;padding:18px}
+    .wrap{max-width:1100px;margin:0 auto}
+    .controls{display:flex;gap:8px;margin-bottom:10px;align-items:center}
+    input, button{padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:#0b1220;color:#e6eef8}
+    pre{background:#0b1220;padding:14px;border-radius:8px;overflow:auto;white-space:pre-wrap}
+    .muted{color:#94a3b8;font-size:13px}
+    details{margin:6px 0}
+    .small{font-size:13px;color:#9aa4b2}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h2>ProjectShowcase API — JSON Viewer</h2>
+    <div class="muted">Fetches <code>/api/v1/projects</code> and displays formatted JSON. Use filters in the input below.</div>
+
+    <div class="controls">
+      <input id="q" placeholder="q (search) e.g., react" />
+      <input id="tag" placeholder="tag e.g., React" />
+      <button id="go">Fetch</button>
+      <button id="pretty">Toggle Collapsed</button>
+    </div>
+
+    <div id="info" class="small">Loaded: <span id="count">—</span> projects</div>
+    <pre id="out">Click Fetch to load JSON...</pre>
+  </div>
+
+  <script>
+    const out = document.getElementById('out');
+    const count = document.getElementById('count');
+    const go = document.getElementById('go');
+    const q = document.getElementById('q');
+    const tag = document.getElementById('tag');
+
+    async function fetchData() {
+      const params = new URLSearchParams();
+      if (q.value) params.set('q', q.value);
+      if (tag.value) params.set('tag', tag.value);
+      const url = '/api/v1/projects' + (params.toString() ? ('?' + params.toString()) : '');
+      out.textContent = 'Loading...';
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        count.textContent = data.meta?.total ?? (Array.isArray(data.data) ? data.data.length : '—');
+        out.textContent = JSON.stringify(data, null, 2);
+      } catch (e) {
+        out.textContent = 'Error: ' + e.message;
+      }
+    }
+
+    go.addEventListener('click', fetchData);
+
+    fetchData();
+  </script>
+</body>
+</html>

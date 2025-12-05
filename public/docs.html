@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>ProjectShowcase API — Docs</title>
+  <style>
+    body{font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:#071024;color:#e6eef8;padding:28px}
+    .wrap{max-width:900px;margin:0 auto}
+    h1{margin-bottom:6px}
+    .muted{color:#94a3b8;font-size:14px;margin-bottom:18px}
+    pre{background:#0b1220;padding:12px;border-radius:8px;overflow:auto}
+    .card{background:#0b1220;padding:14px;border-radius:10px;margin-bottom:12px}
+    a{color:#7dd3fc}
+    code{background:rgba(255,255,255,0.03);padding:3px 6px;border-radius:6px}
+    .small{font-size:13px;color:#9aa4b2}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>ProjectShowcase API — Docs</h1>
+    <div class="muted">Quick examples and usage. Base URL: <code>https://projectshowcaseapi.onrender.com</code></div>
+
+    <div class="card">
+      <h3>GET /api/v1/projects</h3>
+      <div class="small">List projects. Query params: <code>q</code>, <code>tag</code>, <code>page</code>, <code>perPage</code>, <code>sort</code>.</div>
+      <pre>curl "https://projectshowcaseapi.onrender.com/api/v1/projects?q=queue&tag=Python&page=1&perPage=5"</pre>
+      <pre><strong>JS (fetch)</strong>
+fetch("/api/v1/projects?q=queue&tag=Python")
+  .then(r => r.json())
+  .then(d => console.log(d));</pre>
+    </div>
+
+    <div class="card">
+      <h3>GET /api/v1/projects/{id}</h3>
+      <div class="small">Get full project details by id (e.g., <code>proj-1</code>).</div>
+      <pre>curl "https://projectshowcaseapi.onrender.com/api/v1/projects/proj-1"</pre>
+      <pre><strong>JS (fetch)</strong>
+fetch("/api/v1/projects/proj-1").then(r=>r.json()).then(d=>console.log(d))</pre>
+    </div>
+
+    <div class="card">
+      <h3>GET /api/v1/skills</h3>
+      <pre>curl "https://projectshowcaseapi.onrender.com/api/v1/skills"</pre>
+      <pre>fetch("/api/v1/skills").then(r=>r.json()).then(d=>console.log(d))</pre>
+    </div>
+
+    <div class="card">
+      <h3>GET /api/v1/metrics</h3>
+      <pre>curl "https://projectshowcaseapi.onrender.com/api/v1/metrics"</pre>
+      <pre>fetch("/api/v1/metrics").then(r=>r.json()).then(d=>console.log(d))</pre>
+    </div>
+
+    <div class="card">
+      <h3>POST /api/v1/contact</h3>
+      <pre>curl -X POST "https://projectshowcaseapi.onrender.com/api/v1/contact" -H "Content-Type: application/json" -d '{"name":"Sai","email":"sai@example.com","message":"Hello"}'</pre>
+      <pre>fetch("/api/v1/contact", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({name:"Sai",email:"sai@example.com",message:"Hello"})}).then(r=>r.json()).then(d=>console.log(d))</pre>
+    </div>
+
+    <div class="card small">
+      Source: <a href="https://github.com/Lightzzz011/ProjectShowcaseAPI" target="_blank">GitHub/Lightzzz011/ProjectShowcaseAPI</a>
+    </div>
+
+  </div>
+</body>
+</html>
