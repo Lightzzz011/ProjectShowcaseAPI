@@ -8,6 +8,11 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
+app.get('/', (req, res) => {
+  res.send('ProjectShowcase API — visit /api/v1/projects for the JSON list.');
+});
+
+
 const limiter = rateLimit({ windowMs: 60 * 1000, max: 200 });
 app.use(limiter);
 
